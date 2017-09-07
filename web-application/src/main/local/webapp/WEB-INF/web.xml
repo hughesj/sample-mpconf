@@ -22,8 +22,21 @@
 
     <servlet-mapping>
         <servlet-name>index</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/speakers</url-pattern>
     </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/sessions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/schedules</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/votes</url-pattern>
+    </servlet-mapping>
+    
 
 
     <servlet>
