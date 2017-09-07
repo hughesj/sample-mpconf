@@ -15,6 +15,7 @@
 <server description="UI server">
     <featureManager>
         <feature>microProfile-1.0</feature>
+        <feature>jsp-2.3</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8000" />
