@@ -85,13 +85,30 @@
                     <workingDirectory>src/main/static</workingDirectory>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>stop-ui-before-clean</id>
+                        <phase>pre-clean</phase>
+                        <goals>
+                            <goal>stop-server</goal>
+                        </goals>
+                    </execution>                                        
+                </executions>
+                <configuration>
+                    <serverName>uiServer</serverName>
+                    <appArchive>${project.build.directory}/${warfile.name}.war</appArchive>
+                    <configFile>${basedir}/src/main/liberty/config/server.xml</configFile>
+                </configuration>
+            </plugin>            
         </plugins>
-
     </build>
 
     <profiles>        
         <profile>
-            <id>libertee</id>
+            <id>start-open-liberty</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -136,7 +153,7 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>copy-endpoint-service-libertee</id>
+                                <id>copy-endpoint-service</id>
                                 <phase>generate-sources</phase>
                                 <goals>
                                     <goal>copy-resources</goal>
@@ -176,6 +193,14 @@
                                     <include>runnable</include>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>start-ui-after-package</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>start-server</goal>
+                                </goals>
+                            </execution>                                        
+                            
                         </executions>
                         <configuration>
                             <serverName>uiServer</serverName>
@@ -245,36 +270,6 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-        </profile>
-
-        <profile>
-            <id>ui</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-endpoint-service</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${basedir}/src/main/static</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/start/static</directory>
-                                            <filtering>false</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
 
         <profile>
