@@ -149,11 +149,6 @@
                 <version>${version.javaee}</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.tomee</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>${version.javaee}</version>
-            </dependency>
 
             <!-- WILDFLY SWARM -->
             <dependency>
@@ -165,11 +160,6 @@
             </dependency>
 
             <!-- TOMEE -->
-            <dependency>
-                <groupId>org.apache.tomee</groupId>
-                <artifactId>tomee-jaxrs</artifactId>
-                <version>${version.tomee}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.tomee</groupId>
                 <artifactId>arquillian-tomee-embedded</artifactId>
@@ -417,11 +407,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.tomee.maven</groupId>
-                    <artifactId>tomee-maven-plugin</artifactId>
-                    <version>${version.tomee}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
