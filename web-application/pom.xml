@@ -30,12 +30,6 @@
 
     <properties>
         <src.dir>src/main/java</src.dir>
-
-        <service.name>${project.artifactId}</service.name>
-        <service.name>${project.artifactId}</service.name>
-        <service.port>9191</service.port>
-        <docker.user>example</docker.user>
-        <icon>http://microprofile.io/app/images/logo.png</icon>
     </properties>
 
     <build>
