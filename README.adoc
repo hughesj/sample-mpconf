@@ -1,4 +1,4 @@
-= Microprofile Showcase Application
+= MicroProfile Showcase Application
 
 == General information
 
@@ -15,7 +15,9 @@ This means that there is no aggregator / middle-man application.
 The WebApp itself provides a known relative EndPoint microservice that enables the lookup of
 URLs to the other services.
 
-If you would like to participate in the community effort to advance EE then by all
+The sample is a version of the MicroProfile sample application, designed to run all the services on Open Liberty.
+
+If you would like to participate in the MicroProfile community effort to advance EE then by all
 means feel free to join us on the following sites:
 
 http://microprofile.io/[Microprofile.io]
@@ -33,41 +35,27 @@ https://github.com/microprofile[All source code]
 == Technologies
 
 * Java
-* Micro Profile
+* MicroProfile
 * JAX-RS 2.0 / JSON-P 1.0 / CDI 1.1
 
 == Quickstart - Run all services and UI in separate runtimes
 
-This will run each service in the runtime container that its setup for and the UI in a Node.js server to interact with them.
-
-Build, package and run all microservices and the UI:
+To run all the services on individual Open Liberty servers:
 
 ----
-mvn clean package -P start,ui
+mvn clean package -P start
 ----
 
-Run just the microservices:
+To build each service but not start the individual servers:
 
 ----
-mvn package -Pstart -pl :microservice-start
+mvn package
 ----
 
-Run just the UI:
+To clean up the build, including stopping the individual servers:
 
 ----
-mvn package -Pui -pl :microservice-start
-----
-
-=== Running on Liberty
-
-To run all the services on individual WebSphere Liberty servers add the 'liberty' profile to the command:
-
-----
-mvn clean package -P start,ui,liberty
-----
-
-----
-mvn package -P start,liberty -pl :microservice-start
+mvn clean
 ----
 
 == Development Build
