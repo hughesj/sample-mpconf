@@ -89,7 +89,25 @@
                         <goals>
                             <goal>stop-server</goal>
                         </goals>
-                    </execution>                                        
+                    </execution>
+                    <execution>
+                        <id>create-liberty-server</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>create-server</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>package-server</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package-server</goal>
+                        </goals>
+                        <configuration>
+                            <packageFile>${project.build.directory}/${project.artifactId}${qualifier.jar}.zip</packageFile>
+                            <include>runnable</include>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <serverName>uiServer</serverName>
@@ -170,31 +188,12 @@
                         <artifactId>liberty-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>create-liberty-server</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>create-server</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>package-server</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>package-server</goal>
-                                </goals>
-                                <configuration>
-                                    <packageFile>${project.build.directory}/${project.artifactId}${qualifier.jar}.zip</packageFile>
-                                    <include>runnable</include>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>start-ui-after-package</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>start-server</goal>
                                 </goals>
-                            </execution>                                        
-                            
+                            </execution>                                                                    
                         </executions>
                         <configuration>
                             <serverName>uiServer</serverName>
