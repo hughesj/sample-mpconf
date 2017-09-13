@@ -32,7 +32,7 @@
 
     <profiles>
         <profile>
-            <id>start-open-liberty</id>
+            <id>start</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
