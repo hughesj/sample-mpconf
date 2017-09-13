@@ -113,7 +113,7 @@
         <!-- App servers -->
         <version.tomee>7.0.1</version.tomee>
         <version.wildfly>10.0.0.Final</version.wildfly>
-        <version.liberty>0.1.0-SNAPSHOT</version.liberty>
+        <version.liberty>0.0.1-preview</version.liberty>
 
         <!-- Dependencies -->
         <version.javaee>7.0</version.javaee>
@@ -128,6 +128,14 @@
         <warfile.name>ROOT</warfile.name>
         <qualifier.jar></qualifier.jar>
     </properties>
+    
+    <repositories>
+        <repository>
+            <id>openliberty-repo</id>
+            <name>openliberty-repo</name>
+            <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/wasliberty-open-liberty/</url>
+        </repository>
+    </repositories>
 
     <modules>
         <module>demo-bootstrap</module>
@@ -400,11 +408,11 @@
                     <version>${version.liberty.plugin}</version>
                     <configuration>
                         <assemblyArtifact>
-                            <groupId>io.openliberty.runtime</groupId>
-                            <artifactId>openLiberty</artifactId>
-                            <version>${version.liberty}</version>
-                            <type>zip</type>
-                        </assemblyArtifact>
+                         <groupId>io.openliberty</groupId>
+                         <artifactId>openliberty-runtime</artifactId>
+                         <version>${version.liberty}</version>
+                        <type>zip</type>
+                    </assemblyArtifact>
                     </configuration>
                 </plugin>
             </plugins>
