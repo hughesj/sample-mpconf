@@ -233,7 +233,26 @@
                             <warName>${warfile.name}</warName>
                         </configuration>
                     </plugin>
-
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>open-ui-in-browser</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="${open.command}" vmlauncher="false">
+                                            <arg line="http://localhost:8080"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
             <dependencies>
@@ -296,6 +315,39 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>windowsExtension</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <open.command>start</open.command>
+            </properties>
+        </profile>
+        <profile>
+            <id>linuxExtension</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <open.command>xdg-open</open.command>
+            </properties>
+        </profile>
+        <profile>
+            <id>macExtension</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <open.command>open</open.command>
+            </properties>
         </profile>
     </profiles>
 
