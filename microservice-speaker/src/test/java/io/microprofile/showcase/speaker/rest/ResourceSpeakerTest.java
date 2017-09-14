@@ -48,8 +48,14 @@ public class ResourceSpeakerTest {
 
     @Deployment(testable = false)
     public static WebArchive deploy() {
-
+    	
         final File bootstrapLib = Maven.resolver().resolve("io.microprofile.showcase:demo-bootstrap:1.0.0-SNAPSHOT").withoutTransitivity().asSingleFile();
+        final File swizzleLib = Maven.resolver().resolve("org.codehaus.swizzle:swizzle-stream:1.6.2").withoutTransitivity().asSingleFile();
+        final File jacksonCoreLib = Maven.resolver().resolve("com.fasterxml.jackson.core:jackson-core:2.8.2").withoutTransitivity().asSingleFile();
+        final File jacksonDatabindLib = Maven.resolver().resolve("com.fasterxml.jackson.core:jackson-databind:2.8.2").withoutTransitivity().asSingleFile();
+        final File jacksonAnnotationsLib = Maven.resolver().resolve("com.fasterxml.jackson.core:jackson-annotations:2.8.2").withoutTransitivity().asSingleFile();
+        final File commonsCollectionsLib = Maven.resolver().resolve("commons-collections:commons-collections:3.2.2").withoutTransitivity().asSingleFile();
+        final File commonsLang3Lib = Maven.resolver().resolve("org.apache.commons:commons-lang3:3.4").withoutTransitivity().asSingleFile();
 
         return ShrinkWrap.create(WebArchive.class
                 , ResourceSpeakerTest.class.getName() + ".war")
@@ -64,8 +70,15 @@ public class ResourceSpeakerTest {
                 )
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsLibraries(
-                        bootstrapLib
-                );
+                        bootstrapLib,
+                        swizzleLib,
+                        jacksonCoreLib,
+                        jacksonDatabindLib,
+                        jacksonAnnotationsLib,
+                        commonsCollectionsLib,
+                        commonsLang3Lib
+                )
+                .addAsResource(new File("src/main/resources/ConferenceData.json"), "ConferenceData.json");
     }
 
     @ArquillianResource

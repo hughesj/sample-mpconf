@@ -18,17 +18,16 @@
         http://jboss.org/schema/arquillian
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-    <container qualifier="tomee" default="true">
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+    </engine>
+
+    <container qualifier="wlp-dropins-deployment" default="true">
         <configuration>
-            <property name="classifier">plus</property>
-            <property name="httpPort">-1</property>
-            <property name="stopPort">-1</property>
-            <property name="ajpPort">-1</property>
-            <property name="deployerProperties">
-                openejb.deployer.binaries.use=true
-                java.naming.security.principal=tomee
-                java.naming.security.credentials=unsecured
-            </property>
+            <property name="wlpHome">${wlp.home}</property>
+            <property name="deployType">dropins</property>
+            <property name="serverName">speakerServer</property>
+            <property name="httpPort">4040</property>
         </configuration>
     </container>
 
