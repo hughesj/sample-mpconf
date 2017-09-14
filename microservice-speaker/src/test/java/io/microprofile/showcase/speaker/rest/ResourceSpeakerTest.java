@@ -77,7 +77,8 @@ public class ResourceSpeakerTest {
                         jacksonAnnotationsLib,
                         commonsCollectionsLib,
                         commonsLang3Lib
-                );
+                )
+                .addAsResource(new File("src/main/resources/ConferenceData.json"), "ConferenceData.json");
     }
 
     @ArquillianResource
