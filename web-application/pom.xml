@@ -143,14 +143,6 @@
             </properties>
             <build>
                 <finalName>${warfile.name}</finalName>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/local/java</directory>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/local/resources</directory>
-                    </testResource>
-                </testResources>
                 <plugins>
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
@@ -280,19 +272,6 @@
                     <groupId>org.apache.commons</groupId>
                     <artifactId>commons-lang3</artifactId>
                     <scope>provided</scope>
-                </dependency>
-
-
-                <!--TEST-->
-                <dependency>
-                    <groupId>org.apache.tomee</groupId>
-                    <artifactId>arquillian-tomee-embedded</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.tomee</groupId>
-                    <artifactId>tomee-jaxrs</artifactId>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
