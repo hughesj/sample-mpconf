@@ -18,7 +18,7 @@
         <feature>jsp-2.3</feature>
     </featureManager>
 
-    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8000" />
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8080" />
 
     <webApplication location="ROOT.war" contextRoot="/"/>
 </server>
