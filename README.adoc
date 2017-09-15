@@ -46,6 +46,8 @@ To run all the services on individual Open Liberty servers:
 mvn clean package -P start
 ----
 
+To view the Web application, open a browser at http://localhost:8080/
+
 To build each service but not start the individual servers:
 
 ----
@@ -58,181 +60,7 @@ To clean up the build, including stopping the individual servers:
 mvn clean
 ----
 
-== Development Build
 
-----
-mvn clean install -DskipTests
-----
-
-* Build the projects using Maven (`mvn clean install`) or (`mvn -fn clean install`) to skip over failed tests.
-* To get the technical documentation, just `mvn clean generate-resources` under the `docs` directory.
-You will find a PDF and HTML version of the documentation under `docs/target/generated-docs`
-
-== Development Tests
-
-mvn clean test
-
-== Run Individual Services
-
-Each service can run on any container (this is the Microprofile guarantee),
-but the service projects have been written by vendors to use their container.
-
-The following sections describe vendor specifics:
-
-=== microservice-schedule
-The Schedule service is provided using a special microprofile release of link:http://www.payara.fish/payara_micro[Payara Micro] which can be downloaded from link:http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22payara-microprofile%22[Maven Central]
-
-*Build and run the service*
-When building the service Payara Microprofile packages both the war file and the microprofile runtime into a single UberJar for convenience.
-```
-cd microservice-schedule
-mvn clean package
-java -jar target\microservice-schedule.jar --port 6060
-```
-
-*Port Bindings*
-By default the microservice would bind to port 8080, if this is not available it will bind to the next available port e.g. 8081. Specifying the port using --port as a command line option overrides this.
-
-To verify that the schedule microservice is running, use the following link: http://localhost:6060/schedule/all
-
-To see a full set options run the jar with the --help command line option or see the link:https://payara.gitbooks.io/payara-server/content/documentation/payara-micro/payara-micro.html[Payara Micro Documentation] for a full list of options.
-
-==== Running on Liberty
-
-Alternatively you can run this service on liberty by doing:
-
-```
-cd microservice-schedule
-mvn -Pliberty package
-java -jar target/microservice-schedule-liberty.jar
-```
-
-
-=== microservice-session
-
-Provided using link:http://wildfly-swarm.io[WildFly Swarm]
-
-*Build and run the service*
-```
-cd microservice-session
-mvn clean package
-java -jar target/microservice-session-swarm.jar [-D<OPTION>]
-```
-
-*Address & Port Bindings*
-
-.Session Service Options
-|===
-|Flag |Description| Default
-
-| swarm.bind.address=<address>
-| Interface to bind servers
-| 0.0.0.0
-
-| swarm.http.port=<port>
-| Sets the port for the HTTP server
-| 8080
-
-| swarm.port.offset=<offset>
-| Sets a global port adjustment
-| 0
-|===
-
-For example, if you want to change the HTTP port to 5050, run the application like this:
-
-----
-java -jar target/microservice-session-swarm.jar -Dswarm.http.port=5050
-----
-
-Click on this link to verify that everything ran fine: http://localhost:5050/sessions
-
-For a full set of configuration options please see link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/[the Wildfly Swarm Userguide]
-
-==== Running on Liberty
-
-Alternatively you can run this service on liberty by doing:
-
-```
-cd microservice-session
-mvn -Pliberty package
-java -jar target/microservice-session-liberty.jar
-```
-
-=== microservice-speaker
-Provided using link:http://tomee.apache.org/[Apache TomEE 7.x]
-
-*Build and run the service*
-[source,sh]
-----
-cd microservice-speaker
-
-mvn clean package
-
-java -jar target/microservice-speaker-exec.jar
-----
-
-If you look at the output, you will find messages like the following:
-
-----
-INFO - REST Application: http://localhost:4040/speaker               -> io.microprofile.showcase.speaker.rest.Application@68cda174
-INFO - Service URI: http://localhost:4040/speaker/              -> Pojo io.microprofile.showcase.speaker.rest.ResourceSpeaker
-INFO - DELETE http://localhost:4040/speaker/remove/{id}   ->      void remove(String)
-----
-
-There you can see the URLs of the endpoints exposed by TomEE for your application.
-
-To verify that everything worked fine, you can try to access http://localhost:4040/speaker
-
-==== Running on Liberty
-
-Alternatively you can run this service on liberty by doing:
-
-```
-cd microservice-speaker
-mvn -Pliberty package
-java -jar target/microservice-speaker-liberty.jar
-```
-
-
-=== microservice-vote
-Provided using link:https://developer.ibm.com/wasdev/[WebSphere Liberty]
-
-*Build and run the service*
-```
-cd microservice-vote
-mvn package
-java -jar target/microservice-vote.jar
-```
-
-Access the app at http://localhost:7070/vote
-
-*Port Bindings*
-By default the microservice will start on port 7070. To set it to a different port use the following Maven properties:
-```
--DtestServerHttpPort=9080 -DtestServerHttpsPort=9443
-```
-
-Note: if you run the package command with the 'liberty' profile the jar file will be called microservice-vote-liberty.jar.
-
-=== Web Application (UI)
-
-This starts the UI app and all services running in an embedded container.
-The landing page is http://localhost:8080
-
-.Console 1
-----
-mvn clean package tomee:run -pl :web-application -DskipTests
-----
-
-This starts a gulp task that monitors and updates changes to the static resources.
-
-.Console 2
-----
-$ cd web-application
-$ mvn frontend:gulp
-----
-
-Open a browser at http://localhost:8080/
 
 == Common problems/bugs
 
@@ -255,18 +83,104 @@ npm install typings --global
 typings install --global
 ----
 
-== Access to canonical source code
+== Original source
+
+This samples is based of the MicroProfile Conference demo at:
 
 * https://github.com/microprofile/microprofile-conference
 
-== Notes
+= Conference API specification
 
-This application is a collaborative demonstration application by:
+= Introduction
 
-* WebSphere Liberty
-* London Java Community
-* SouJava
-* Red Hat
-* Tomitribe
-* Payara
+The application consists of several Microservices and a Web-Application managing a conference.
 
+= Architecture
+
+* Session service. Manage session descriptions.
+* Session voting service. Vote for the your favorite session
+* Speaker service. Manage speakers, Bios, etc
+* Schedule Service.  Service to manage session schedules
+* Front-end application
+
+== Speaker Service
+
+   Speaker
+     - Id (generated)
+     - Name
+     - Title
+     - Organization
+     - Biography
+     - Picture
+     - Twitter handle
+
+   APIs
+    Speaker add(Speaker)
+    void remove(Id)
+    Speaker update(Speaker)
+    Speaker retrieve(Id)
+    List<Speaker> retrieveAll()
+    List<Speaker> search(Speaker)
+
+== Session Service
+
+   Session
+     - Id (generated)
+     - Code
+     - Title
+     - Abstract
+     - Type (HOL/Session)
+
+   Session Speakers
+     - Session Id
+     - Speaker Id
+
+   APIs
+     Session add(Session)
+     Session update(Session)
+     Session retrieve(Id)
+     void remove(Id)
+     List<Session> search(Session)
+     List<Session> sessionsForSpeaker(Speaker Id)
+     List<Session> speakersForSession(Session Id)
+
+== Session Schedule Service
+
+   Schedule
+     - Id (generated)
+     - Session Id
+     - Venue
+     - Date
+     - Start Time
+     - Duration
+
+   APIs
+     Schedule add(Schedule)
+     Schedule update(Schedule)
+     Schedule retrieve(Id)
+     void remove(Id)
+     List<Schedule> allForVenue(venue)
+     List<Schedule> activeAtTime(time)
+     List<Schedule> allForDay(date)
+     List<Schedule> all
+
+== Session Voting Service
+
+   Attendee
+     - Id
+     - Name
+
+   Session Rating
+     - Id
+     - Session Id
+     - Attendee Id
+     - Rating (1-10)
+
+   APIs
+     Attendee registerAttendee(Attendee)
+     Attendee updateAttendee(Attendee)
+     SessionRating rateSession(SessionRating)
+     SessionRating updateRating(SessionRating)
+     List<SessionRating> allSessionVotes(Session Id)
+     Double sessionRatingAverage(Session Id)
+     List<SessionRating> votesByAttendee(Attendee Id)
