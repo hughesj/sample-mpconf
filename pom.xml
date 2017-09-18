@@ -113,7 +113,7 @@
         <!-- App servers -->
         <version.tomee>7.0.1</version.tomee>
         <version.wildfly>10.0.0.Final</version.wildfly>
-        <version.liberty>0.0.1-preview</version.liberty>
+        <version.liberty>17.0.0.3-RC</version.liberty>
 
         <!-- Dependencies -->
         <version.javaee>7.0</version.javaee>
