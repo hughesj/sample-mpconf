@@ -83,6 +83,14 @@ npm install typings --global
 typings install --global
 ----
 
+=== Ant issues
+The sample uses the antrun plugin to launch the web UI in a browser at the and of the build. This may fail on mac or linux with the following message:
+----
+    An Ant BuildException has occured: Execute failed: java.io.IOException: Cannot locate antRun script: Property 'ant.home' not found
+----
+This can be safely ignored, The ui should still be availaible at http://localhost:8080 or running the build with the ant home property set will remove the error (mvn -Dant.home=/path/to/ant ....)
+    
+
 == Original source
 
 This samples is based of the MicroProfile Conference demo at:
