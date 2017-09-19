@@ -111,8 +111,6 @@
         <version.jackson>2.8.2</version.jackson>
 
         <!-- App servers -->
-        <version.tomee>7.0.1</version.tomee>
-        <version.wildfly>10.0.0.Final</version.wildfly>
         <version.liberty>17.0.0.3-RC</version.liberty>
 
         <!-- Dependencies -->
@@ -155,31 +153,6 @@
                 <version>${version.javaee}</version>
                 <scope>provided</scope>
             </dependency>
-
-            <!-- TOMEE -->
-            <dependency>
-                <groupId>org.apache.tomee</groupId>
-                <artifactId>tomee-jaxrs</artifactId>
-                <version>${version.tomee}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomee</groupId>
-                <artifactId>arquillian-tomee-embedded</artifactId>
-                <version>${version.tomee}</version>
-            </dependency>
-
-            <!-- PAYARA -->
-            <dependency>
-                <groupId>fish.payara.extras</groupId>
-                <artifactId>payara-micro</artifactId>
-                <version>${version.payara}</version>
-            </dependency>
-            <dependency>
-                <groupId>fish.payara.extras</groupId>
-                <artifactId>payara-embedded-all</artifactId>
-                <version>4.1.1.163.0.1</version>
-            </dependency>
-
 
             <!-- OTHERS -->
             <dependency>
