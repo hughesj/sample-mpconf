@@ -111,7 +111,7 @@
         <version.jackson>2.8.2</version.jackson>
 
         <!-- App servers -->
-        <version.liberty>17.0.0.3-RC</version.liberty>
+        <version.liberty>17.0.0.3</version.liberty>
 
         <!-- Dependencies -->
         <version.javaee>7.0</version.javaee>
@@ -127,14 +127,6 @@
         <qualifier.jar></qualifier.jar>
     </properties>
     
-    <repositories>
-        <repository>
-            <id>openliberty-repo</id>
-            <name>openliberty-repo</name>
-            <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/wasliberty-open-liberty/</url>
-        </repository>
-    </repositories>
-
     <modules>
         <module>demo-bootstrap</module>
         <module>microservice-session</module>
