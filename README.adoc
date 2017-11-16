@@ -1,4 +1,4 @@
-= MicroProfile Showcase Application
+= MicroProfile Showcase Application image:https://travis-ci.org/OpenLiberty/sample-mpconf.svg?branch=master["Build Status", link="https://travis-ci.org/OpenLiberty/sample-mpconf"]
 
 == General information
 
@@ -39,6 +39,7 @@ https://github.com/microprofile[All source code]
 * JAX-RS 2.0 / JSON-P 1.0 / CDI 1.1
 
 == Quickstart - Run all services and UI in separate runtimes
+=== Running with Maven
 
 To run all the services on individual Open Liberty servers:
 
@@ -46,7 +47,7 @@ To run all the services on individual Open Liberty servers:
 mvn clean package -P start
 ----
 
-To view the Web application, open a browser at http://localhost:8080/
+To view the Web application, open a browser at http://localhost:8080/[http://localhost:8080/]
 
 To build each service but not start the individual servers:
 
@@ -60,14 +61,41 @@ To clean up the build, including stopping the individual servers:
 mvn clean
 ----
 
+=== Running with https://github.com/WASdev/ci.gradle[Gradle]
 
+To run the entire life cycle and start the servers:
+----
+gradle build libertyStart
+----
+
+To simply start the servers:
+----
+gradle libertyStart
+----
+
+To view the Web application, open a browser at http://localhost:8080/[http://localhost:8080/] or use:
+----
+gradle openWebApp
+----
+
+To package your servers:
+----
+gradle libertyPackage
+----
+
+To stop the individual servers and clean up the build:
+----
+gradle libertyStop clean
+----
+
+Click https://github.com/WASdev/ci.gradle[here] for full Gradle Liberty Plugin documentation.
 
 == Common problems/bugs
 
 === NPM issues
 
-The web-application project uses the *com.github.eirslett:frontend-maven-plugin* to download
-and install all node and npm requirements.
+The web-application project downloads and install all node and npm requirements using plugins. 
+Maven uses *https://github.com/eirslett/frontend-maven-plugin*, and Gradle uses *https://plugins.gradle.org/plugin/org.ysb33r.nodejs.gulp*.
 Sometimes this may fail if console permissions are not permissive enough.
 
 In such cases you will have to manually install some reqiurements:
