@@ -1,0 +1,14 @@
+rootProject.name = 'microprofile-conference'
+include ':demo-bootstrap'
+include ':microservice-session'
+include ':microservice-vote'
+include ':microservice-speaker'
+include ':microservice-schedule'
+include ':web-application'
+
+project(':demo-bootstrap').projectDir = "$rootDir/demo-bootstrap" as File
+project(':microservice-session').projectDir = "$rootDir/microservice-session" as File
+project(':microservice-vote').projectDir = "$rootDir/microservice-vote" as File
+project(':microservice-speaker').projectDir = "$rootDir/microservice-speaker" as File
+project(':microservice-schedule').projectDir = "$rootDir/microservice-schedule" as File
+project(':web-application').projectDir = "$rootDir/web-application" as File

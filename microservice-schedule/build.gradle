@@ -1,0 +1,41 @@
+apply plugin: 'liberty'
+apply plugin: 'war'
+
+description = 'Conference :: Schedule'
+dependencies {
+    compile project(':demo-bootstrap')
+    providedCompile group: 'javax', name: 'javaee-api', version:'7.0'
+    libertyRuntime group: 'io.openliberty', name: 'openliberty-runtime', version:'17.0.0.3'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.0.1'
+    }
+}
+
+ext {
+    warfileName = "ROOT"
+
+    // Liberty server properties
+    wlpServerName = 'scheduleServer'
+}
+
+war {
+    archiveName = warfileName + '.' + extension
+}
+
+liberty {
+    server {
+        name = wlpServerName
+    }
+}
+
+task url {
+    doLast { println ("Schedule :: http://localhost:6060") }
+}
+
+clean.dependsOn 'libertyStop'

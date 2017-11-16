@@ -27,3 +27,5 @@ nb-configuration.xml
 ui.bat
 .distribution
 .microprofile
+*.gradle/
+*build

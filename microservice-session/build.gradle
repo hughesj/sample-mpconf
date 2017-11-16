@@ -1,0 +1,42 @@
+apply plugin: 'liberty'
+apply plugin: 'war'
+
+description = 'Conference :: Session'
+dependencies {
+    compile project(':demo-bootstrap')
+    providedCompile group: 'javax', name: 'javaee-api', version:'7.0'
+    providedCompile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.8.2'
+    libertyRuntime group: 'io.openliberty', name: 'openliberty-runtime', version:'17.0.0.3'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.0.1'
+    }
+}
+
+ext {
+    warfileName = "ROOT" 
+
+    // Liberty server properties
+    wlpServerName = 'sessionServer'
+}
+
+war {
+    archiveName = warfileName + '.' + extension
+}
+
+liberty {
+    server {
+        name = wlpServerName
+    }
+}
+
+task url {
+    doLast { println ("Session :: http://localhost:5050") }
+}
+
+clean.dependsOn 'libertyStop'

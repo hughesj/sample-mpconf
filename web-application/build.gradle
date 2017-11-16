@@ -1,0 +1,113 @@
+apply plugin: 'war'
+apply plugin: 'liberty'
+apply plugin: 'org.ysb33r.nodejs.gulp'
+
+description = 'Conference :: Web'
+dependencies {
+    libertyRuntime group: 'io.openliberty', name: 'openliberty-runtime', version:'17.0.0.3'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.ysb33r.gradle:nodejs-gradle-plugin:0.1"
+        classpath "net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.0.1"
+    }
+}
+
+ext {
+    warfileName = "ROOT"
+
+    // Liberty server properties
+    wlpServerName = 'uiServer'
+    testServerHttpPort = 8080
+}
+
+war {
+    from "build/static-resources"
+    webAppDirName = "src/main/local/webapp"
+    archiveName = warfileName + '.' + extension
+}
+
+nodejs {
+    // comes with npm version '4.2.0'
+    executable version : '7.1.0'
+}
+
+npm {
+    homeDirectory 'src/main/static/'
+}
+
+gulp {
+    gulpFile 'src/main/static/gulpfile.js'
+}
+
+task npmInstall(type: org.ysb33r.gradle.nodejs.tasks.NpmTask) {
+    description = 'Run npm install from Gradle.'
+    command 'install'
+
+    // example module that probably indicates a necessary npm install
+    onlyIf { !new File("${projectDir}/src/main/static/node_modules/gulp-typescript").exists() }
+}
+
+task gulpBuild(type: org.ysb33r.gradle.nodejs.tasks.GulpTask) {
+    description = 'Run gulp build from Gradle. Build directory is target.'
+    target 'build'
+    dependsOn 'cpEndpointsService', 'npmInstall'
+
+    onlyIf {
+        !new File("${projectDir}/target/scss").exists() && !new File("${projectDir}/target/static-resources").exists()
+    }
+}
+
+liberty {
+    server {
+        name = wlpServerName
+        looseApplication = false
+    }
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(":web-application:libertyStart")) {
+        libertyStart.doLast {
+            println ("Application is running on http://localhost:${testServerHttpPort}/")
+        }
+
+        /** Uncomment the line below to automatically open your web app in a browser **/
+        // libertyStart.finalizedBy 'openWebApp'
+    }
+}
+
+task openWebApp {
+    description = 'Open browser to http://localhost:8080/'
+    doLast {
+        java.awt.Desktop.desktop.browse "http://localhost:${testServerHttpPort}/".toURI()
+    }
+}
+
+task cpEndpointsService(type: Copy) {
+    from "src/main/local/static/app/shared/endpoints.service.ts"
+    into "src/main/static/app/shared"
+
+    onlyIf { !new File("src/main/static/app/shared/endpoints.service.ts").exists() }
+}
+
+task copyTarget(type: Copy) {
+    from "target"
+    into "build"
+}
+
+task deleteTarget(type: Delete) {
+    delete("target")
+}
+
+build.dependsOn 'gulpBuild'
+copyTarget.dependsOn 'gulpBuild'
+war.dependsOn 'copyTarget'
+clean.dependsOn 'libertyStop'
+clean.finalizedBy 'deleteTarget'
