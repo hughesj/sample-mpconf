@@ -52,7 +52,7 @@
                         </executions>
                         <configuration>
                             <serverName>speakerServer</serverName>
-                            <appArchive>${project.build.directory}/${warfile.name}.war</appArchive>
+                            <appArchive>${project.build.directory}/_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest.war</appArchive>
                             <configFile>${basedir}/src/main/liberty/config/server.xml</configFile>
                         </configuration>                        
                     </plugin>
@@ -79,15 +79,13 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>
-                                ${project.build.directory}/liberty/${liberty.root}usr/servers/speakerServer/apps
-                            </outputDirectory>
+                            <outputDirectory>${project.build.directory}/liberty/${liberty.root}usr/servers/speakerServer/apps</outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>
                                     <includes>
-                                        <include>${warfile.name}.war</include>
+                                        <include>_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest.war</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -127,7 +125,7 @@
                 </executions>
                 <configuration>
                     <serverName>speakerServer</serverName>
-                    <appArchive>${project.build.directory}/${warfile.name}.war</appArchive>
+                    <appArchive>${project.build.directory}/_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest.war</appArchive>
                     <configFile>${basedir}/src/main/liberty/config/server.xml</configFile>
                 </configuration>
             </plugin>
