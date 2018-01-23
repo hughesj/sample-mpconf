@@ -30,6 +30,11 @@
     <description>The Speaker microservice resource</description>
     <packaging>war</packaging>
 
+
+    <properties>
+        <shrinkwrapWarfile.name>_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest</shrinkwrapWarfile.name>
+    </properties>
+
     <profiles>
         <profile>
             <id>start</id>
@@ -52,7 +57,7 @@
                         </executions>
                         <configuration>
                             <serverName>speakerServer</serverName>
-                            <appArchive>${project.build.directory}/_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest.war</appArchive>
+                            <appArchive>${project.build.directory}/${shrinkwrapWarfile.name}.war</appArchive>
                             <configFile>${basedir}/src/main/liberty/config/server.xml</configFile>
                         </configuration>                        
                     </plugin>
@@ -85,7 +90,7 @@
                                 <resource>
                                     <directory>${project.build.directory}</directory>
                                     <includes>
-                                        <include>_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest.war</include>
+                                        <include>${shrinkwrapWarfile.name}.war</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -125,7 +130,7 @@
                 </executions>
                 <configuration>
                     <serverName>speakerServer</serverName>
-                    <appArchive>${project.build.directory}/_DEFAULT___DEFAULT__io.microprofile.showcase.speaker.rest.ResourceSpeakerTest.war</appArchive>
+                    <appArchive>${project.build.directory}/${shrinkwrapWarfile.name}.war</appArchive>
                     <configFile>${basedir}/src/main/liberty/config/server.xml</configFile>
                 </configuration>
             </plugin>
@@ -136,6 +141,12 @@
                 <configuration>
                     <argLine>-Dwlp.home=${project.build.directory}/liberty/${liberty.root}</argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <configuration>
+                      <skip>true</skip>
+                    </configuration>
             </plugin>
             
         </plugins>
@@ -154,7 +165,7 @@
         <dependency>
             <groupId>io.microprofile.showcase</groupId>
             <artifactId>demo-bootstrap</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <!-- JAVA EE -->
