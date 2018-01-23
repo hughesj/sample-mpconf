@@ -20,5 +20,5 @@
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="4040" />
 
-    <webApplication location="ROOT.war" contextRoot="/"/>
+    <!-- <webApplication location="ROOT.war" contextRoot="/"/> -->
 </server>
