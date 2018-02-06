@@ -97,7 +97,7 @@
         <version.site.plugin>3.5.1</version.site.plugin>
         <version.surefire.plugin>2.19.1</version.surefire.plugin>
         <version.war.plugin>2.6</version.war.plugin>
-        <version.liberty.plugin>2.0</version.liberty.plugin>
+        <version.liberty.plugin>2.1.2</version.liberty.plugin>
         <liberty.root>wlp/</liberty.root>
 
         <!-- Test -->
@@ -111,7 +111,7 @@
         <version.jackson>2.8.2</version.jackson>
 
         <!-- App servers -->
-        <version.liberty>17.0.0.4</version.liberty>
+        <version.liberty>[17.0.0.4,)</version.liberty>
 
         <!-- Dependencies -->
         <version.javaee>7.0</version.javaee>
